@@ -1,6 +1,8 @@
 ### shmget() 
-The shmget() function is used to create or access a shared memory segment in Linux systems. 
-		
+The shmget() function is used to create or access a shared memory segment in Linux systems. The general syntax of the shmget() function is as follows:
+					
+					int shmget(key_t key, size_t size, int shmflg);
+				
 key: A unique identifier for the shared memory segment. This can be generated using the ftok() function, or it can be a predefined constant such as IPC_PRIVATE or a user-defined value.
 
 size: The size of the shared memory segment, in bytes.
