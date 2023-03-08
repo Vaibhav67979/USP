@@ -1,7 +1,0 @@
-Procedure for tw4:
-1. First open two terminals in the current directory.
-2. Compile both client and server in each window with different names. 
-3. First run the server program and then the client program.
-4. Enter the file name which should be present in the same directory.
-5. To execute the program again erase the fifo files and the compiled files and follow the procedure again.
-
