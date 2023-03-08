@@ -1,0 +1,88 @@
+#define _POSIX_SOURCE
+#define _POSIX_C_SOURCE 199309L
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
+
+int main() {
+	int choice = -1;
+
+	while (choice != 3) {
+		cout << "1] Runtime limits\n2] Compiletime limits\n3] Exit\n> ";
+		cin >> choice;
+
+		switch (choice) {
+			case 1: {
+				cout << "* Run-time values\n";
+
+				int res;
+				if ((res = sysconf(_SC_CLK_TCK)) == -1)
+					perror("sysconf");
+				else
+					cout << "No. of clock ticks: " << res << '\n';
+
+				if ((res = sysconf(_SC_CHILD_MAX)) == -1)
+					perror("sysconf");
+				else
+					cout << "Max. no. of child processes: " << res << '\n';
+
+				if ((res = pathconf("/", _PC_NAME_MAX)) == -1)
+					perror("pathconf");
+				else
+					cout << "Max. length in bytes in a file name: " << res << '\n';
+
+				if ((res = pathconf("/", _PC_PATH_MAX)) == -1)
+					perror("pathconf");
+				else
+					cout << "Max. length in bytes of a path: " << res << '\n';
+
+				if ((res = sysconf(_SC_OPEN_MAX)) == -1)
+					perror("sysconf");
+				else
+					cout << "Max. no. of open files: " << res << '\n';
+
+				break;
+			}
+			case 2: {
+				cout << "* Compile-time values\n";
+
+				#ifdef _POSIX_CHILD_MAX
+					cout << "Max. no. of child processes: " << _POSIX_CHILD_MAX << '\n';
+				#else
+					cout << "_POSIX_CHILD_MAX is not defined\n";
+				#endif
+
+				#ifdef _POSIX_OPEN_MAX
+					cout << "Max. no. of files simultaneously opened: " << _POSIX_OPEN_MAX << '\n';
+				#else
+					cout << "_POSIX_OPEN_MAX is not defined\n";
+				#endif
+
+				#ifdef _POSIX_NAME_MAX
+					cout << "Max. no. of characters in filename: " << _POSIX_NAME_MAX << '\n';
+				#else
+					cout << "_POSIX_NAME_MAX is not defined\n";
+				#endif
+
+				#ifdef _POSIX_PATH_MAX
+					cout << "Max. no of chars in pathname: " << _POSIX_PATH_MAX << '\n';
+				#else
+					cout << "_POSIX_PATH_MAX is not defined\n";
+				#endif
+
+				#ifdef _POSIX_CLK_TCK
+					cout << "No. of clock ticks: " << _POSIX_CLK_TCK << '\n';
+				#else
+					cout << "_POSIX_CLK_TCK is not defined\n";
+				#endif
+
+				break;
+			}
+			case 3: break;
+			default: cout << "Invalid choice!\n";;
+		}
+	}
+
+	return 0;
+}
